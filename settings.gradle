@@ -1,1 +1,6 @@
-include 'chapter4'
+// Automatically include any subdir starting with "chapter" as a subproject
+file('.').eachDir { File subdir ->
+  if (subdir.name.startsWith('chapter')) {
+    include subdir.name.toString()
+  }
+}
