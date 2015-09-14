@@ -14,3 +14,10 @@ hs_err_pid*
 # gradle build stuff
 .gradle/
 build
+
+# Android studio stuff
+.idea
+*.iml
+
+# Local configuration
+local.properties
