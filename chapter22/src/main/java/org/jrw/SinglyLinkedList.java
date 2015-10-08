@@ -39,7 +39,7 @@ public class SinglyLinkedList {
      * Solves problem 22.10
      * This solution is O(n^2); an O(n) solution seems possible
      */
-    public void zip() {
+    public void zipOn2() {
         if (length < 3) {
             return;
         }
@@ -55,6 +55,31 @@ public class SinglyLinkedList {
             next = next.next;
             previousTail = tail;
         }
+    }
+
+    /**
+     * Reverses this linked list
+     */
+    public void reverse() {
+        Node current = head;
+
+        if (current == null) {
+            return;
+        }
+
+        Node next = current.next;
+        head.next = null;
+        Node temp = next;
+        while (temp != null) {
+            temp = next.next;
+            next.next = current;
+            current = next;
+            next = temp;
+        }
+
+        temp = head;
+        head = tail;
+        tail = temp;
     }
 
     private void moveBackTail() {
