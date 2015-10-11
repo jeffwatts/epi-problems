@@ -5,7 +5,7 @@ public class SinglyLinkedList {
     private Node tail;
     private int length;
 
-    static class Node {
+    public static class Node {
         static int val;
 
         Node next;
@@ -20,6 +20,21 @@ public class SinglyLinkedList {
         public String toString() {
             return String.format("Node(%d)", value);
         }
+    }
+
+    public SinglyLinkedList() {}
+
+    public SinglyLinkedList(Node head) {
+        this.head = head;
+        length = 0;
+        Node current = head;
+        Node last = current;
+        while (current != null) {
+            last = current;
+            current = current.next;
+            length++;
+        }
+        tail = last;
     }
 
     public SinglyLinkedList append(Node node) {
@@ -39,7 +54,7 @@ public class SinglyLinkedList {
      * Solves problem 22.10
      * This solution is O(n^2); an O(n) solution seems possible
      */
-    public void zipOn2() {
+    public void zipON2() {
         if (length < 3) {
             return;
         }
@@ -58,28 +73,68 @@ public class SinglyLinkedList {
     }
 
     /**
-     * Reverses this linked list
+     * Solves problem 22.10 in O(n) time complexity
      */
-    public void reverse() {
-        Node current = head;
-
-        if (current == null) {
+    public void zipON() {
+        if (length < 3) {
             return;
         }
 
+        // partition this list into two halves
+        Node lead = head;
+        Node trailing = lead;
+        while (lead != null && lead.next != null) {
+            trailing = trailing.next;
+            lead = lead.next.next;
+        }
+        Node partitionTwoHead = trailing.next;
+        trailing.next = null;
+
+        partitionTwoHead = reverseAtNode(partitionTwoHead);
+
+        Node curPartitionOne = head;
+        Node curPartitionTwo = partitionTwoHead;
+
+        while (curPartitionTwo != null) {
+            Node temp = curPartitionTwo.next;
+            curPartitionTwo.next = curPartitionOne.next;
+            curPartitionOne.next = curPartitionTwo;
+            curPartitionOne = curPartitionOne.next.next;
+            curPartitionTwo = temp;
+        }
+    }
+
+    /**
+     * Reverses this linked list
+     */
+    public void reverse() {
+        reverseAtNode(head);
+        Node temp = head;
+        head = tail;
+        tail = temp;
+    }
+
+    /**
+     * Returns the node at the head of the given sub-list
+     */
+    private Node reverseAtNode(Node current) {
+        Node newHead = current;
+        if (current == null) {
+            return null;
+        }
+
         Node next = current.next;
-        head.next = null;
+        current.next = null;
         Node temp = next;
         while (temp != null) {
+            newHead = temp;
             temp = next.next;
             next.next = current;
             current = next;
             next = temp;
         }
 
-        temp = head;
-        head = tail;
-        tail = temp;
+        return newHead;
     }
 
     private void moveBackTail() {

@@ -9,22 +9,22 @@ import static org.junit.Assert.assertNull;
 
 public class SinglyLinkedListTest {
     @Test
-    public void emptyList() {
+    public void zipEmptyList() {
         SinglyLinkedList list = new SinglyLinkedList();
         Node[] originalList = list.toArray();
-        list.zipOn2();
+        list.zipON2();
         Node[] zippedList = list.toArray();
         assertEquals(0, zippedList.length);
         assertArrayEquals(originalList, zippedList);
     }
 
     @Test
-    public void singleNodeList() {
+    public void zipSingleNodeList() {
         SinglyLinkedList list = new SinglyLinkedList();
         Node node = new Node();
         list.append(node);
         Node[] originalList = list.toArray();
-        list.zipOn2();
+        list.zipON2();
         Node[] zippedList = list.toArray();
 
         assertEquals(1, zippedList.length);
@@ -32,13 +32,13 @@ public class SinglyLinkedListTest {
     }
 
     @Test
-    public void twoNodeList() {
+    public void zipTwoNodeList() {
         SinglyLinkedList list = new SinglyLinkedList();
         Node nodeOne = new Node();
         Node nodeTwo = new Node();
         list.append(nodeOne).append(nodeTwo);
         Node[] originalList = list.toArray();
-        list.zipOn2();
+        list.zipON2();
         Node[] zippedList = list.toArray();
 
         assertEquals(2, zippedList.length);
@@ -46,7 +46,7 @@ public class SinglyLinkedListTest {
     }
 
     @Test
-    public void manyNodeList() {
+    public void zipFiveNodeList() {
         SinglyLinkedList list = new SinglyLinkedList();
         Node nodeOne = new Node();
         Node nodeTwo = new Node();
@@ -54,11 +54,90 @@ public class SinglyLinkedListTest {
         Node nodeFour = new Node();
         Node nodeFive = new Node();
         list.append(nodeOne).append(nodeTwo).append(nodeThree).append(nodeFour).append(nodeFive);
-        list.zipOn2();
+        list.zipON2();
         Node[] zippedList = list.toArray();
 
         Node[] expectedList = new Node[] {
             nodeOne, nodeFive, nodeTwo, nodeFour, nodeThree
+        };
+
+        assertEquals(5, zippedList.length);
+        assertArrayEquals(expectedList, zippedList);
+    }
+
+    @Test
+    public void zipONEmptyList() {
+        SinglyLinkedList list = new SinglyLinkedList();
+        Node[] originalList = list.toArray();
+        list.zipON();
+        Node[] zippedList = list.toArray();
+        assertEquals(0, zippedList.length);
+        assertArrayEquals(originalList, zippedList);
+    }
+
+    @Test
+    public void zipONSingleNodeList() {
+        SinglyLinkedList list = new SinglyLinkedList();
+        Node node = new Node();
+        list.append(node);
+        Node[] originalList = list.toArray();
+        list.zipON();
+        Node[] zippedList = list.toArray();
+
+        assertEquals(1, zippedList.length);
+        assertArrayEquals(originalList, zippedList);
+    }
+
+    @Test
+    public void zipONTwoNodeList() {
+        SinglyLinkedList list = new SinglyLinkedList();
+        Node nodeOne = new Node();
+        Node nodeTwo = new Node();
+        list.append(nodeOne).append(nodeTwo);
+        Node[] originalList = list.toArray();
+        list.zipON();
+        Node[] zippedList = list.toArray();
+
+        assertEquals(2, zippedList.length);
+        assertArrayEquals(originalList, zippedList);
+    }
+
+    @Test
+    public void zipONSixNodeList() {
+        SinglyLinkedList list = new SinglyLinkedList();
+        Node nodeOne = new Node();
+        Node nodeTwo = new Node();
+        Node nodeThree = new Node();
+        Node nodeFour = new Node();
+        Node nodeFive = new Node();
+        Node nodeSix = new Node();
+        list.append(nodeOne).append(nodeTwo).append(nodeThree).append(nodeFour).append(nodeFive)
+                .append(nodeSix);
+        list.zipON();
+        Node[] zippedList = list.toArray();
+
+        Node[] expectedList = new Node[] {
+                nodeOne, nodeSix, nodeTwo, nodeFive, nodeThree, nodeFour
+        };
+
+        assertEquals(6, zippedList.length);
+        assertArrayEquals(expectedList, zippedList);
+    }
+
+    @Test
+    public void zipONFiveNodeList() {
+        SinglyLinkedList list = new SinglyLinkedList();
+        Node nodeOne = new Node();
+        Node nodeTwo = new Node();
+        Node nodeThree = new Node();
+        Node nodeFour = new Node();
+        Node nodeFive = new Node();
+        list.append(nodeOne).append(nodeTwo).append(nodeThree).append(nodeFour).append(nodeFive);
+        list.zipON();
+        Node[] zippedList = list.toArray();
+
+        Node[] expectedList = new Node[] {
+                nodeOne, nodeFive, nodeTwo, nodeFour, nodeThree
         };
 
         assertEquals(5, zippedList.length);
